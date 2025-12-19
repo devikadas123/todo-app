@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        /* Center the app */
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f8f8f8;
+        }
+
+        /* THE MAIN BOX */
+        .box {
+            background: white;
+            width: 500px;
+            padding: 40px;
+            /* THICK BROWN BORDER */
+            border: 6px solid #4a3c31; 
+        }
+
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            border-bottom: 2px solid #000;
+            padding-bottom: 20px;
+        }
+
+        /* RECTANGULAR BUTTON STYLE */
+        .btn {
+            display: inline-block;
+            background: white;
+            border: 2px solid #000;
+            color: black;
+            padding: 8px 15px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 0px; /* Force Rectangle */
+            margin-right: 5px;
+        }
+
+        .btn:hover {
+            background-color: #eee;
+        }
+
+        /* Large 'Add' Button */
+        .btn-large {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            text-align: center;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        /* LIST STYLES (Circle Bullets) */
+        ul { 
+            padding-left: 20px; 
+            /* 'disc' = Filled Circle, 'circle' = Hollow Circle */
+            list-style-type: disc; 
+        }
+
+        li {
+            border-bottom: 1px solid #ccc;
+            padding: 15px 0;
+            padding-left: 5px;
+        }
+        
+        /* COLOR THE CIRCLES BROWN */
+        li::marker {
+            color: #4a3c31;   /* Matches your border */
+            font-size: 1.2em; /* Makes the dot slightly larger */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h1>To-Do List</h1>
+
+        <a href="{% url 'add_todo' %}" class="btn btn-large">+ Add New Task</a>
+
+        <ul>
+            {% for item in todos %}
+                <li>
+                    <strong style="font-size: 18px;">{{ item.subject }}</strong>
+                    <br>
+                    <span style="color: #666;">{{ item.notes }}</span>
+                    <br><br>
+                    
+                    <a href="{% url 'view_todo' item.id %}" class="btn">View</a>
+                    <a href="{% url 'edit_todo' item.id %}" class="btn">Edit</a>
+                    <a href="{% url 'delete_todo' item.id %}" class="btn" style="border-color: red; color: red;">Delete</a>
+                </li>
+            {% empty %}
+                <p style="text-align: center; list-style: none;">No items yet.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>

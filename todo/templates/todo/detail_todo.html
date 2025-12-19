@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Task</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background-color: #f8f8f8; }
+        .box { background: white; width: 500px; padding: 40px; border: 6px solid #4a3c31; } /* SAME BORDER */
+        
+        /* Style for the read-only text boxes */
+        .read-only-box {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px 0;
+            border: 2px solid #000; /* Black border to match inputs */
+            box-sizing: border-box;
+            background-color: #fafafa; /* Slightly grey to show it's read-only */
+        }
+
+        .btn { background: white; border: 2px solid #000; padding: 10px 20px; cursor: pointer; border-radius: 0; font-weight: bold; font-size: 16px; text-decoration: none; color: black; display: inline-block; margin-right: 10px;}
+        .btn:hover { background: #eee; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h1>Task Details</h1>
+
+        <label><strong>Subject:</strong></label>
+        <div class="read-only-box">
+            {{ item.subject }}
+        </div>
+        
+        <label><strong>Notes:</strong></label>
+        <div class="read-only-box" style="min-height: 100px;">
+            {{ item.notes|linebreaks }}
+        </div>
+        
+        <br>
+        <a href="{% url 'edit_todo' item.id %}" class="btn">Edit This Task</a>
+        <a href="{% url 'index' %}" class="btn" style="border: none;">Back to List</a>
+    </div>
+
+</body>
+</html>
